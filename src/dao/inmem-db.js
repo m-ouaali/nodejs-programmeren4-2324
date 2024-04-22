@@ -49,20 +49,76 @@ const database = {
     },
 
     add(item, callback) {
+        console.log('New person added: ', item)
         // Simuleer een asynchrone operatie
         setTimeout(() => {
-            // Voeg een id toe en voeg het item toe aan de database
-            item.id = this._index++
-            // Voeg item toe aan de array
-            this._data.push(item)
+            // Controleer eerst op duplicaat e-mailadressen
+            this.checkDuplicateEmail(item.emailAdress, (error, duplicate) => {
+                if (error) {
+                    // Roep de callback aan met de foutmelding
+                    callback(error, null)
+                    return
+                }
+                if (duplicate) {
+                    // Roep de callback aan met de foutmelding dat het e-mailadres al bestaat
+                    callback({ message: 'Error: Email address already exists!' }, null)
+                    return
+                }
+                // Voeg een id toe en voeg het item toe aan de database
+                item.id = this._index++
+                // Voeg item toe aan de array
+                this._data.push(item)
 
-            // Roep de callback aan het einde van de operatie
-            // met het toegevoegde item als argument, of null als er een fout is opgetreden
-            callback(null, item)
+                // Roep de callback aan het einde van de operatie
+                // met het toegevoegde item als argument, of null als er een fout is opgetreden
+                callback(null, item)
+            })
         }, this._delayTime)
-    }
+    },
 
     // Voeg zelf de overige database functionaliteit toe
+    checkDuplicateEmail(email, callback) {
+        // Simuleer een asynchrone operatie
+        setTimeout(() => {
+            // Controleer of het opgegeven e-mailadres al in de database zit
+            const duplicate = this._data.some(item => item.emailAdress === email)
+            // Roep de callback aan met true als er een duplicaat is gevonden, anders false
+            callback(null, duplicate)
+        }, this._delayTime)
+    },
+    update: function(id, updatedFields, callback) {
+        setTimeout(() => {
+            const index = this._data.findIndex(data => data.id === Number(id));
+            if (index === -1) {
+                callback({ message: 'Error: User not found!' }, null);
+                return;
+            }
+
+            // Check if the updated email address already exists for another user
+            const newEmail = updatedFields.emailAdress;
+            const existingUser = this._data.find(user => user.emailAdress === newEmail && user.id !== Number(id));
+            if (existingUser) {
+                callback({ message: 'Error: Email address already exists!' }, null);
+                return;
+            }
+
+            // Update the user with the specified ID with the updated fields
+            this._data[index] = { ...this._data[index], ...updatedFields };
+            callback(null, this._data[index]);
+        }, this._delayTime);
+    },
+
+    delete: function(id, callback) {
+        setTimeout(() => {
+            const index = this._data.findIndex(data => data.id === Number(id));
+            if (index === -1) {
+                callback({ message: 'Error: User not found!' }, null)
+                return
+            }
+            const deletedData = this._data.splice(index, 1);
+            callback(null, deletedData[0])
+        }, this._delayTime)
+    }
 }
 
 module.exports = database

@@ -26,6 +26,43 @@ const userService = {
                 })
             }
         })
+    },
+    getById: (id, callback) => {
+        database.getById(id, (err, data) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, {
+                    message: `User found with id ${id}.`,
+                    data: data
+                });
+            }
+        });
+    },
+    update: (id, user, callback) => {
+        database.update(id, user, (err, data) => {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, {
+                    message: `User with id ${id} updated.`,
+                    data: data
+                })
+            }
+        })
+    },
+
+    delete: (id, callback) => {
+        database.delete(id, (err, data) => {
+            if (err) {
+                callback(err, null)
+            } else {
+                callback(null, {
+                    message: `User with id ${id} deleted.`,
+                    data: data
+                })
+            }
+        })
     }
 }
 
