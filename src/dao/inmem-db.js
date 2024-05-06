@@ -80,7 +80,7 @@ const database = {
     checkDuplicateEmail(email, callback) {
         // Simuleer een asynchrone operatie
         setTimeout(() => {
-            // Controleer of het opgegeven e-mailadres al in de database zit
+            // Controleert of het opgegeven e-mailadres al in de database zit
             const duplicate = this._data.some(item => item.emailAdress === email)
             // Roep de callback aan met true als er een duplicaat is gevonden, anders false
             callback(null, duplicate)
@@ -94,7 +94,7 @@ const database = {
                 return;
             }
 
-            // Check if the updated email address already exists for another user
+            // Controleert of de email al bestaat
             const newEmail = updatedFields.emailAdress;
             const existingUser = this._data.find(user => user.emailAdress === newEmail && user.id !== Number(id));
             if (existingUser) {
@@ -102,7 +102,7 @@ const database = {
                 return;
             }
 
-            // Update the user with the specified ID with the updated fields
+            // Update de user met het gegeven ID met de geupdate velden
             this._data[index] = { ...this._data[index], ...updatedFields };
             callback(null, this._data[index]);
         }, this._delayTime);

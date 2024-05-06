@@ -14,7 +14,7 @@ const notFound = (req, res, next) => {
     })
 }
 
-// Input validation functions for user routes
+// Input validatie functies voor user routes
 const validateUserCreate = (req, res, next) => {
     if (!req.body.emailAdress || !req.body.firstName || !req.body.lastName) {
         return res.status(400).json({
@@ -49,7 +49,7 @@ const validateUserCreateChaiExpect = (req, res, next) => {
 router.post('/api/users', validateUserCreateChaiExpect, userController.create)
 router.get('/api/users', userController.getAll)
 router.get('/api/users/:userId', userController.getById)
-//this is the update route
+//update route hieronder
 router.put('/api/users/:userId', validateUserCreateChaiExpect, userController.update)
 router.delete('/api/users/:userId', userController.delete)
 
