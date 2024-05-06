@@ -41,7 +41,7 @@ const database = {
         // Simuleer een asynchrone operatie
         setTimeout(() => {
             if (id < 0 || id >= this._data.length) {
-                callback({ message: `Error: id ${id} does not exist!` }, null)
+                callback({ status:404, message: `Error: id ${id} does not exist!` }, null)
             } else {
                 callback(null, this._data[id])
             }
@@ -61,7 +61,7 @@ const database = {
                 }
                 if (duplicate) {
                     // Roep de callback aan met de foutmelding dat het e-mailadres al bestaat
-                    callback({ message: 'Error: Email address already exists!' }, null)
+                    callback({ status:400, message: 'Error: Email address already exists!' }, null)
                     return
                 }
                 // Voeg een id toe en voeg het item toe aan de database
@@ -90,7 +90,7 @@ const database = {
         setTimeout(() => {
             const index = this._data.findIndex(data => data.id === Number(id));
             if (index === -1) {
-                callback({ message: 'Error: User not found!' }, null);
+                callback({ status:400, message: 'Error: User not found!' }, null);
                 return;
             }
 
@@ -98,7 +98,7 @@ const database = {
             const newEmail = updatedFields.emailAdress;
             const existingUser = this._data.find(user => user.emailAdress === newEmail && user.id !== Number(id));
             if (existingUser) {
-                callback({ message: 'Error: Email address already exists!' }, null);
+                callback({ status:404, message: 'Error: Email address already exists!' }, null);
                 return;
             }
 
@@ -112,7 +112,7 @@ const database = {
         setTimeout(() => {
             const index = this._data.findIndex(data => data.id === Number(id));
             if (index === -1) {
-                callback({ message: 'Error: User not found!' }, null)
+                callback({ status:404, message: 'Error: User not found!' }, null)
                 return
             }
             const deletedData = this._data.splice(index, 1);

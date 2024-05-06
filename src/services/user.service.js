@@ -7,6 +7,7 @@ const userService = {
                 callback(err, null)
             } else {
                 callback(null, {
+                    status: 201,
                     message: `User created with id ${data.id}.`,
                     data: data
                 })
@@ -21,6 +22,7 @@ const userService = {
             } else {
                 console.log(data)
                 callback(null, {
+                    status: 200,
                     message: `Found ${data.length} users.`,
                     data: data
                 })
@@ -30,9 +32,10 @@ const userService = {
     getById: (id, callback) => {
         database.getById(id, (err, data) => {
             if (err) {
-                callback(err, null);
+                callback(err, null, {});
             } else {
                 callback(null, {
+                    status: 200,
                     message: `User found with id ${id}.`,
                     data: data
                 });
@@ -45,6 +48,7 @@ const userService = {
                 callback(err, null)
             } else {
                 callback(null, {
+                    status: 200,
                     message: `User with id ${id} updated.`,
                     data: data
                 })
@@ -58,6 +62,7 @@ const userService = {
                 callback(err, null)
             } else {
                 callback(null, {
+                    status: 200,
                     message: `User with id ${id} deleted.`,
                     data: data
                 })
