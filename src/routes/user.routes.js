@@ -81,9 +81,9 @@ const validateUserCreateChaiExpect = (req, res, next) => {
 router.post('/api/users', validateUserCreateChaiExpect, userController.create)
 router.get('/api/users', userController.getAll)
 router.get('/api/users/:userId', userController.getById)
+//update route hieronder
+router.put('/api/users/:userId', validateUserCreateChaiExpect, userController.update)
+router.delete('/api/users/:userId', userController.delete)
 
-// Tijdelijke routes om niet bestaande routes op te vangen
-router.put('/api/users/:userId', notFound)
-router.delete('/api/users/:userId', notFound)
 
 module.exports = router
