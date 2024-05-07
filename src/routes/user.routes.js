@@ -35,6 +35,11 @@ const validateUserCreateChaiExpect = (req, res, next) => {
             /^[a-zA-Z]+$/,
             'firstName must be a string'
         )
+        assert(req.body.hasOwnProperty('isActive'), 'Missing isActive property')
+        assert(
+            typeof req.body.isActive == 'boolean',
+            'isActive must be a boolean'
+        )
         next()
     } catch (ex) {
         return res.status(400).json({
