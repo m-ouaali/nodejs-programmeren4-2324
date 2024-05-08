@@ -53,23 +53,13 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-<<<<<<< HEAD
       
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_31B059A9D33F41F4AD956D51A443F156 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B71C65A562FC493D9BE58153844A3AD4 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_0B162C47A62246038420FE83111763BA }}
-=======
-      
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5DE69B24B93C42A9823BDEEC245FCC9B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E13E89A89C8147B1AFE4980D931DEDA4 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_81E0F9BE769B4B38A5CAB8886E09D188 }}
->>>>>>> release
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8B5E2C367DB14F8692BA5A75660DFAB6 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5186170528684ABB85285B93354CAE9F }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_BFD4A8C41D2D4DEEB5DD0C79392B703D }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
