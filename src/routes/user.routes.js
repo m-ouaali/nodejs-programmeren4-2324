@@ -26,37 +26,7 @@ const validateUserCreate = (req, res, next) => {
     next()
 }
 
-// Input validation function 2 met gebruik van assert
-const validateUserCreateAssert = (req, res, next) => {
-    try {
-        assert(req.body.emailAdress, 'Missing email')
-        assert(req.body.firstName, 'Missing or incorrect first name')
-        assert(req.body.lastName, 'Missing last name')
-        next()
-    } catch (ex) {
-        return res.status(400).json({
-            status: 400,
-            message: ex.message,
-            data: {}
-        })
-    }
-}
 
-// Input validation function 2 met gebruik van assert
-const validateUserCreateChaiShould = (req, res, next) => {
-    try {
-        req.body.firstName.should.not.be.empty.and.a('string')
-        req.body.lastName.should.not.be.empty.and.a('string')
-        req.body.emailAdress.should.not.be.empty.and.a('string').and.match(/@/)
-        next()
-    } catch (ex) {
-        return res.status(400).json({
-            status: 400,
-            message: ex.message,
-            data: {}
-        })
-    }
-}
 
 const validateUserCreateChaiExpect = (req, res, next) => {
     try {
@@ -65,7 +35,12 @@ const validateUserCreateChaiExpect = (req, res, next) => {
         chai.expect(req.body.firstName).to.be.a('string')
         chai.expect(req.body.firstName).to.match(
             /^[a-zA-Z]+$/,
-            'firstName must be a string'
+            'Missing or incorrect firstName field'
+        )
+        chai.expect(req.body.emailAdress).to.be.a('string')
+        chai.expect(req.body.emailAdress).to.match(
+            /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+            'Invalid email address'
         )
         next()
     } catch (ex) {
