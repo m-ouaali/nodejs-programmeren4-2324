@@ -18,6 +18,16 @@ const userService = {
         })
     },
 
+    getByEmail: (email, callback) => {
+        pool.query('SELECT * FROM user WHERE emailAdress = ?', [email], (err, results) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, results[0]);
+            }
+        });
+    },
+
     getAll: (callback) => {
         logger.info('getAll')
         pool.query('SELECT * FROM user', (err, results) => {

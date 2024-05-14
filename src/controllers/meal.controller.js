@@ -55,11 +55,17 @@ let mealController = {
                     data: {}
                 })
             }
-            if (success) {
+            if (success && success.data && success.data.length > 0) {
                 res.status(200).json({
-                    status: success.status,
+                    status: 200,
                     message: success.message,
                     data: success.data
+                })
+            } else {
+                res.status(404).json({
+                    status: 404,
+                    message: 'Meal not found',
+                    data: {}
                 })
             }
         })
@@ -97,14 +103,25 @@ let mealController = {
                 })
             }
             if (success) {
-                res.status(200).json({
-                    status: success.status,
-                    message: success.message,
-                    data: success.data
-                })
+                if (success.data && success.data.affectedRows === 0) {
+                    // No rows were affected, so the meal with the provided ID does not exist
+                    res.status(404).json({
+                        status: 404,
+                        message: 'Meal not found',
+                        data: {}
+                    })
+                } else {
+                    // A row was affected, so the meal with the provided ID did exist and was successfully deleted
+                    res.status(200).json({
+                        status: 200,
+                        message: 'Meal successfully deleted',
+                        data: success.data
+                    })
+                }
             }
         })
     }
 }
+
 
 module.exports = mealController
