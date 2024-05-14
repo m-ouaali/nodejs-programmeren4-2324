@@ -1,7 +1,11 @@
+require('dotenv').config()
 const express = require('express')
 const userRoutes = require('./src/routes/user.routes')
 const mealRoutes = require('./src/routes/meal.routes')
 const logger = require('./src/util/logger')
+
+
+// Rest of your code
 
 const app = express()
 
