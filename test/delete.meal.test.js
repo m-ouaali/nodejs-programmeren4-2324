@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 describe('TC-305', () => {
     it('TC-305-3 maaltijdId bestaat niet', (done) => {
         chai.request(server)
-            .delete(`/api/meal/1000`) // Use the correct route
+            .delete(`/api/meal/1000`)
             .end((err, res) => {
                 res.should.have.status(404);
                 res.body.should.be.a('object');

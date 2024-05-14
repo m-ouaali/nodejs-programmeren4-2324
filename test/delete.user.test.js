@@ -9,7 +9,7 @@ describe('TC 205', () => {
     let userId;
 
     before((done) => {
-        // Create a user before running the tests
+        // Maakt een user aan die later verwijderd wordt
         chai.request(server)
             .post('/api/users')
             .send({
