@@ -11,9 +11,6 @@ const endpointToTest = '/api/users'
 
 describe('UC201 Registreren als nieuwe user', function() {
     this.timeout(5000)
-    // beforeEach((done) => {
-    //     console.log('Before each test')
-    //     done()
     })
 
     it('TC-201-1 Verplicht veld ontbreekt', (done) => {
