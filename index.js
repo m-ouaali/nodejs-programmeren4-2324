@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const userRoutes = require('./src/routes/user.routes')
 const mealRoutes = require('./src/routes/meal.routes')
+const authRoutes = require('./src/routes/authentication.routes')
 const logger = require('./src/util/logger')
 
 
@@ -28,7 +29,7 @@ app.get('/api/info', (req, res) => {
 // Hier komen alle routes
 app.use(userRoutes)
 app.use(mealRoutes)
-
+app.use(authRoutes.routes)
 // Route error handler
 app.use((req, res, next) => {
     next({
